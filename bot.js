@@ -139,7 +139,6 @@ nightmare
     document.querySelector(`a[href='${nextBigWarUrl}']`).click();
   })
   .wait(1000)
-  .inject("css", "style.css")
   .reloadEvery()
   .then(console.log)
   .catch(error => {
