@@ -1,0 +1,68 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+
+
+</head>
+
+<body>
+
+    <style>
+        img {
+            width: 70px;
+            border: 1px solid blue;
+        }
+        .price {
+            border: 1px solid green;
+            margin-left: 5px;
+            margin-right: 5px;
+            padding: 5px;
+        }
+        .monster { 
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            align-items: center;
+            margin-bottom: 10px;    
+        }
+
+        .highest-price {
+            color: red;
+        }
+
+        .lowest-price {
+            color: green;
+        }
+    </style>
+
+    <div class="table"></div>
+    <script>
+        /* replace start */const data = {"items":[{"date":"Tue May 19 2020","time":"20:46:08 GMT+0200 (Central European Summer Time)","monsters":[{"image":"https://dcdn3.lordswm.com/i/portraits/bobbitanip33.png?v=8","price":"71","title":"Forest hobbits"},{"image":"https://dcdn2.lordswm.com/i/portraits/banditkaanip33.png?v=9","price":"87","title":"Infiltrators"},{"image":"https://dcdn2.lordswm.com/i/portraits/gnomonanip33.png?v=7","price":"91","title":"Warhammerers"},{"image":"https://dcdn1.lordswm.com/i/portraits/banditkaupanip33.png?v=9","price":"117","title":"Spies"},{"image":"https://dcdn3.lordswm.com/i/portraits/highwaymananip33.png?v=7","price":"164","title":"Bruisers"},{"image":"https://dcdn3.lordswm.com/i/portraits/nomadanip33.png?v=5","price":"223","title":"Nomads"},{"image":"https://dcdn1.lordswm.com/i/portraits/nomadupanip33.png?v=5","price":"289","title":"Hunni"},{"image":"https://dcdn1.lordswm.com/i/portraits/tenguanip33.png?v=7","price":"844","title":"Tengu"},{"image":"https://dcdn2.lordswm.com/i/portraits/giantanip33.png?v=8","price":"1822","title":"Trashers"}]},{"date":"Tue May 19 2020","time":"20:46:54 GMT+0200 (Central European Summer Time)","monsters":[{"image":"https://dcdn3.lordswm.com/i/portraits/bobbitanip33.png?v=8","price":"71","title":"Forest hobbits"},{"image":"https://dcdn2.lordswm.com/i/portraits/banditkaanip33.png?v=9","price":"87","title":"Infiltrators"},{"image":"https://dcdn2.lordswm.com/i/portraits/gnomonanip33.png?v=7","price":"91","title":"Warhammerers"},{"image":"https://dcdn1.lordswm.com/i/portraits/banditkaupanip33.png?v=9","price":"117","title":"Spies"},{"image":"https://dcdn3.lordswm.com/i/portraits/highwaymananip33.png?v=7","price":"164","title":"Bruisers"},{"image":"https://dcdn3.lordswm.com/i/portraits/nomadanip33.png?v=5","price":"223","title":"Nomads"},{"image":"https://dcdn1.lordswm.com/i/portraits/nomadupanip33.png?v=5","price":"289","title":"Hunni"},{"image":"https://dcdn1.lordswm.com/i/portraits/tenguanip33.png?v=7","price":"844","title":"Tengu"},{"image":"https://dcdn2.lordswm.com/i/portraits/giantanip33.png?v=8","price":"1822","title":"Trashers"}]},{"date":"Tue May 19 2020","time":"20:47:23 GMT+0200 (Central European Summer Time)","monsters":[{"image":"https://dcdn3.lordswm.com/i/portraits/bobbitanip33.png?v=8","price":"71","title":"Forest hobbits"},{"image":"https://dcdn2.lordswm.com/i/portraits/banditkaanip33.png?v=9","price":"87","title":"Infiltrators"},{"image":"https://dcdn2.lordswm.com/i/portraits/gnomonanip33.png?v=7","price":"91","title":"Warhammerers"},{"image":"https://dcdn1.lordswm.com/i/portraits/banditkaupanip33.png?v=9","price":"117","title":"Spies"},{"image":"https://dcdn3.lordswm.com/i/portraits/highwaymananip33.png?v=7","price":"164","title":"Bruisers"},{"image":"https://dcdn3.lordswm.com/i/portraits/nomadanip33.png?v=5","price":"223","title":"Nomads"},{"image":"https://dcdn1.lordswm.com/i/portraits/nomadupanip33.png?v=5","price":"289","title":"Hunni"},{"image":"https://dcdn1.lordswm.com/i/portraits/tenguanip33.png?v=7","price":"844","title":"Tengu"},{"image":"https://dcdn2.lordswm.com/i/portraits/giantanip33.png?v=8","price":"1822","title":"Trashers"}]},{"date":"Tue May 19 2020","time":"20:47:42 GMT+0200 (Central European Summer Time)","monsters":[{"image":"https://dcdn3.lordswm.com/i/portraits/bobbitanip33.png?v=8","price":"71","title":"Forest hobbits"},{"image":"https://dcdn2.lordswm.com/i/portraits/banditkaanip33.png?v=9","price":"87","title":"Infiltrators"},{"image":"https://dcdn2.lordswm.com/i/portraits/gnomonanip33.png?v=7","price":"91","title":"Warhammerers"},{"image":"https://dcdn1.lordswm.com/i/portraits/banditkaupanip33.png?v=9","price":"117","title":"Spies"},{"image":"https://dcdn3.lordswm.com/i/portraits/highwaymananip33.png?v=7","price":"164","title":"Bruisers"},{"image":"https://dcdn3.lordswm.com/i/portraits/nomadanip33.png?v=5","price":"223","title":"Nomads"},{"image":"https://dcdn1.lordswm.com/i/portraits/nomadupanip33.png?v=5","price":"289","title":"Hunni"},{"image":"https://dcdn1.lordswm.com/i/portraits/tenguanip33.png?v=7","price":"844","title":"Tengu"},{"image":"https://dcdn2.lordswm.com/i/portraits/giantanip33.png?v=8","price":"1822","title":"Trashers"}]}]};/* replace end */
+        const monsters = {};
+        const items = Array.from(data.items);
+        for(const item of items) {
+            for(const monster of item.monsters) {
+                monsters[monster.title] = { prices: monsters[monster.title]?.prices || [] };
+                monsters[monster.title].prices = [...monsters[monster.title].prices, {price: monster.price, date: item.date, time: item.time }];
+                monsters[monster.title].image = monster.image;
+                monsters[monster.title].title = monster.title;
+            }
+        }
+
+        for (const [title, { image, prices }] of Object.entries(monsters)) {
+            const table = document.querySelector(".table");
+            const element = document.createElement("div.monster");
+            const sortedPrice = prices.sort((a, b) => a.price - b.price);
+            const highestPrice = sortedPrice[sortedPrice.length - 1].price;
+            const lowestPrice = sortedPrice[0].price;
+            console.log(highestPrice, lowestPrice);
+            let priceHtml = "";
+            prices.forEach(price => priceHtml +=  `<span class="price ${highestPrice === price.price ? 'highest-price' : ''} ${lowestPrice === price.price ? 'lowest-price' : ''}" title="${price.date} ${price.time}">${price.price}</span>`)
+            element.innerHTML = `<div class="monster">
+                <img src="${image}"/>
+                <div>${priceHtml}</div>
+            </div>`.trim();
+            table.appendChild(element.firstChild)
+        }
+        </script>
+</body>
+</html>
